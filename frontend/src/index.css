@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased font-sans selection:bg-agri-200 selection:text-agri-900;
+  }
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.gradient-agri {
+  background: linear-gradient(135deg, #052e16 0%, #15803d 50%, #22c55e 100%);
+}
+
+.gradient-hero {
+  background: radial-gradient(circle at top right, rgba(34, 197, 94, 0.15), transparent 40%),
+              radial-gradient(circle at bottom left, rgba(217, 119, 6, 0.08), transparent 40%);
+}
+
+.custom-shadow {
+  box-shadow: 0 10px 30px -5px rgba(22, 101, 52, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+}
+
+.glow-agri {
+  box-shadow: 0 0 25px rgba(34, 197, 94, 0.35);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
