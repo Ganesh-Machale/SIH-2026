@@ -59,13 +59,12 @@ export const LandingPage = () => {
                 Farmers often know today’s listed market price, but <strong>not their actual Net Realization</strong> after logistics, storage, commission, and spoilage. KisanNiti AI calculates expected net earnings and tells you exactly <strong>WHERE, WHEN & TO WHOM</strong> to sell.
               </p>
 
-              {/* CTAs */}
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
-                  to="/dashboard"
+                  to="/login"
                   className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-6 py-3.5 rounded-xl shadow-lg shadow-emerald-500/25 flex items-center space-x-2 transition transform hover:-translate-y-0.5"
                 >
-                  <span>Find Best Selling Opportunity</span>
+                  <span>Login to Start Selling Smarter</span>
                   <ArrowRight size={18} />
                 </Link>
 
@@ -144,10 +143,10 @@ export const LandingPage = () => {
                 </div>
 
                 <Link
-                  to="/dashboard"
+                  to="/login"
                   className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center space-x-2 transition"
                 >
-                  <span>Open Full Dashboard</span>
+                  <span>Login for Full Dashboard</span>
                   <ArrowRight size={14} />
                 </Link>
               </div>

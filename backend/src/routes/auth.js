@@ -1,4 +1,5 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -50,7 +51,7 @@ router.post('/register', async (req, res) => {
             );
         }
 
-        const token = jwt.sign({ id: userId, email, user_type: user_type.toUpperCase(), name }, JWT_SECRET, { expiresIn: '7d' });
+        const token = jwt.sign({ id: userId, email, user_type: user_type.toUpperCase(), name }, JWT_SECRET, { expiresIn: '1d' });
 
         return res.json({
             token,
@@ -63,7 +64,12 @@ router.post('/register', async (req, res) => {
 });
 
 // Login User
-router.post('/login', async (req, res) => {
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: 'Too many login attempts, please try again later.'
+});
+router.post('/login', loginLimiter, async (req, res) => {
     try {
         const { email, password } = req.body;
         const db = await getDB();
@@ -77,7 +83,7 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
 
-        const token = jwt.sign({ id: user.id, email: user.email, user_type: user.user_type, name: user.name }, JWT_SECRET, { expiresIn: '7d' });
+        const token = jwt.sign({ id: user.id, email: user.email, user_type: user.user_type, name: user.name }, JWT_SECRET, { expiresIn: '1d' });
 
         return res.json({
             token,

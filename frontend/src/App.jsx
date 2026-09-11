@@ -6,6 +6,7 @@ import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
 
 import { LandingPage } from './pages/LandingPage';
+import { LoginPage } from './pages/LoginPage';
 import { FarmerDashboard } from './pages/FarmerDashboard';
 import { AddProduce } from './pages/AddProduce';
 import { MarketIntelligence } from './pages/MarketIntelligence';
@@ -19,6 +20,7 @@ import { FPODashboard } from './pages/FPODashboard';
 import { BuyerDashboard } from './pages/BuyerDashboard';
 import { SellingHistory, SavedOpportunities } from './pages/SellingHistory';
 import { AdminDashboard } from './pages/AdminDashboard';
+import { PrivateRoute } from './components/PrivateRoute';
 
 // Layout wrapper for app pages (with navbar and sidebar)
 const AppLayout = ({ children }) => {
@@ -41,29 +43,30 @@ export function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* Public Landing Page */}
+          {/* Public Routes */}
           <Route path="/" element={
             <div>
               <DemoHeader />
               <LandingPage />
             </div>
           } />
+          <Route path="/login" element={<LoginPage />} />
 
           {/* App Dashboard Routes */}
-          <Route path="/dashboard" element={<AppLayout><FarmerDashboard /></AppLayout>} />
-          <Route path="/add-produce" element={<AppLayout><AddProduce /></AppLayout>} />
-          <Route path="/where-when-whom" element={<AppLayout><WhereWhenToWhom /></AppLayout>} />
-          <Route path="/market-intelligence" element={<AppLayout><MarketIntelligence /></AppLayout>} />
-          <Route path="/net-realization" element={<AppLayout><NetRealizationCalculator /></AppLayout>} />
-          <Route path="/price-forecast" element={<AppLayout><PriceForecast /></AppLayout>} />
-          <Route path="/buyer-matching" element={<AppLayout><BuyerMatching /></AppLayout>} />
-          <Route path="/what-if-simulator" element={<AppLayout><WhatIfSimulator /></AppLayout>} />
-          <Route path="/market-map" element={<AppLayout><MarketMap /></AppLayout>} />
-          <Route path="/fpo-dashboard" element={<AppLayout><FPODashboard /></AppLayout>} />
-          <Route path="/buyer-dashboard" element={<AppLayout><BuyerDashboard /></AppLayout>} />
-          <Route path="/selling-history" element={<AppLayout><SellingHistory /></AppLayout>} />
-          <Route path="/saved-opportunities" element={<AppLayout><SavedOpportunities /></AppLayout>} />
-          <Route path="/admin-dashboard" element={<AppLayout><AdminDashboard /></AppLayout>} />
+          <Route path="/dashboard" element={<PrivateRoute allowedRoles={['FARMER']}><AppLayout><FarmerDashboard /></AppLayout></PrivateRoute>} />
+          <Route path="/add-produce" element={<PrivateRoute allowedRoles={['FARMER']}><AppLayout><AddProduce /></AppLayout></PrivateRoute>} />
+          <Route path="/where-when-whom" element={<PrivateRoute allowedRoles={['FARMER']}><AppLayout><WhereWhenToWhom /></AppLayout></PrivateRoute>} />
+          <Route path="/market-intelligence" element={<PrivateRoute allowedRoles={['FARMER', 'FPO']}><AppLayout><MarketIntelligence /></AppLayout></PrivateRoute>} />
+          <Route path="/net-realization" element={<PrivateRoute allowedRoles={['FARMER', 'FPO']}><AppLayout><NetRealizationCalculator /></AppLayout></PrivateRoute>} />
+          <Route path="/price-forecast" element={<PrivateRoute allowedRoles={['FARMER', 'FPO', 'BUYER']}><AppLayout><PriceForecast /></AppLayout></PrivateRoute>} />
+          <Route path="/buyer-matching" element={<PrivateRoute allowedRoles={['FARMER', 'FPO']}><AppLayout><BuyerMatching /></AppLayout></PrivateRoute>} />
+          <Route path="/what-if-simulator" element={<PrivateRoute allowedRoles={['FARMER', 'FPO']}><AppLayout><WhatIfSimulator /></AppLayout></PrivateRoute>} />
+          <Route path="/market-map" element={<PrivateRoute allowedRoles={['FARMER', 'FPO', 'BUYER']}><AppLayout><MarketMap /></AppLayout></PrivateRoute>} />
+          <Route path="/fpo-dashboard" element={<PrivateRoute allowedRoles={['FPO']}><AppLayout><FPODashboard /></AppLayout></PrivateRoute>} />
+          <Route path="/buyer-dashboard" element={<PrivateRoute allowedRoles={['BUYER']}><AppLayout><BuyerDashboard /></AppLayout></PrivateRoute>} />
+          <Route path="/selling-history" element={<PrivateRoute allowedRoles={['FARMER', 'FPO']}><AppLayout><SellingHistory /></AppLayout></PrivateRoute>} />
+          <Route path="/saved-opportunities" element={<PrivateRoute allowedRoles={['FARMER', 'FPO']}><AppLayout><SavedOpportunities /></AppLayout></PrivateRoute>} />
+          <Route path="/admin-dashboard" element={<PrivateRoute allowedRoles={['ADMIN']}><AppLayout><AdminDashboard /></AppLayout></PrivateRoute>} />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

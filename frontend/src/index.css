@@ -1,17 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-800 antialiased font-sans selection:bg-agri-200 selection:text-agri-900;
+    @apply bg-slate-900 text-slate-200 antialiased font-sans selection:bg-emerald-500/30 selection:text-emerald-100;
+    font-family: 'Inter', sans-serif;
   }
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(30, 41, 59, 0.85); /* slate-800 */
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  border: 1px solid rgba(51, 65, 85, 0.8); /* slate-700 */
 }
 
 .gradient-agri {
